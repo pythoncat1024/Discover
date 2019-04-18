@@ -1,14 +1,16 @@
-package com.pycat.phone;
+package com.pycat.discover.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class PhoneActivity extends AppCompatActivity {
+import com.pycat.discover.R;
+
+public class DiscoverActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone);
+        setContentView(R.layout.activity_discover);
     }
 }

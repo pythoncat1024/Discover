@@ -3,11 +3,21 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT" />
-        </compositeConfiguration>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Javalib" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/commonlib" />
+            <option value="$PROJECT_DIR$/discover" />
+            <option value="$PROJECT_DIR$/dynamic_feature" />
+            <option value="$PROJECT_DIR$/filelibrary" />
+            <option value="$PROJECT_DIR$/instant_dynamic" />
+            <option value="$PROJECT_DIR$/phone" />
+          </set>
+        </option>
         <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
