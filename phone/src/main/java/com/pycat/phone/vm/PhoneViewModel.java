@@ -28,6 +28,9 @@ public class PhoneViewModel extends ViewModel {
                 .getBoolean(Constant.SPLASH_DONE, false);
     }
 
+    /**
+     * 状态写入sp，下次进入就不走欢迎页了
+     */
     public void setSplashDone() {
         PreferenceManager
                 .getDefaultSharedPreferences(PhoneApp.get())

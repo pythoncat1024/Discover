@@ -12,6 +12,7 @@ import com.pycat.phone.base.PhoneApp;
 import com.pycat.phone.vm.PhoneViewModel;
 import com.python.cat.commonlib.utils.ToastHelper;
 import com.python.cat.splash.SplashFragment;
+import com.python.cat.splash.funny.FunnyFragment;
 
 import io.reactivex.disposables.Disposable;
 
@@ -28,28 +29,45 @@ public class PhoneActivity extends BaseActivity {
 
         mViewModel = ViewModelProviders.of(this).get(PhoneViewModel.class);
 
+        int containerID = R.id.activity_phone_root;
         if (!mViewModel.splashDone()) {
-            SplashFragment splashF = SplashFragment.newInstance();
-            inUseFragment = splashF;
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.activity_phone_root,
-                            splashF,
-                            SplashFragment.TAG)
-                    .commitAllowingStateLoss();
-
-            splashF.setCompleteListener(
-                    () -> {
-                        LogUtils.v("欢迎页完成。。。");
-                        mViewModel.setSplashDone();
-                        delayDisposable = mViewModel.delay(1, t -> finish());
-                    });
+            loadWelcome(containerID);
         } else {
             // load normal fragment
             LogUtils.e("load normal ui");
-            ToastHelper.show(PhoneApp.get(),"load normal...");
+            ToastHelper.show(PhoneApp.get(), "load normal...");
+            loadNormal(containerID);
         }
 
+    }
+
+    private void loadWelcome(int containerID) {
+        SplashFragment splashF = SplashFragment.newInstance();
+        inUseFragment = splashF;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(containerID,
+                        splashF,
+                        SplashFragment.TAG)
+                .commitAllowingStateLoss();
+
+        splashF.setCompleteListener(
+                () -> {
+                    LogUtils.v("欢迎页完成。。。");
+                    mViewModel.setSplashDone();
+                    //                        delayDisposable = mViewModel.delay(1, t -> finish());
+                    loadNormal(containerID);
+                });
+    }
+
+    private void loadNormal(int containerID) {
+        FunnyFragment fragment = FunnyFragment.newInstance();
+        inUseFragment = fragment;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(containerID, fragment)
+                .commitAllowingStateLoss()
+        ;
     }
 
     @Override

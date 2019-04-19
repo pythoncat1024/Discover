@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".funny.FunnyFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_8"
+        android:padding="@dimen/dp_8"
+        android:text="@string/hello_blank_fragment"
+        android:textSize="@dimen/sp_18" />
+
+    <com.python.cat.splash.funny.BigLayout
+        android:id="@+id/funny_big"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/btn_select_conversation_disable">
+
+        <TextView
+            android:id="@+id/funny_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_20"
+            android:background="@color/mail_format_correct"
+            android:padding="@dimen/dp_8"
+            android:text="@string/funny_text"
+            android:textSize="@dimen/sp_18" />
+
+        <ToggleButton
+            android:id="@+id/funny_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="150dp"
+            android:textOff="@string/click_enable"
+            android:textOn="@string/click_disable" />
+    </com.python.cat.splash.funny.BigLayout>
+</LinearLayout>

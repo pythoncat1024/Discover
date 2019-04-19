@@ -3,4 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="funny_text">This is a funny text</string>
+    <string name="click_enable">外部可以点击</string>
+    <string name="click_disable">外部不能点击</string>
 </resources>
