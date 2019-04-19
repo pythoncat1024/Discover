@@ -11,6 +11,7 @@ public class PhoneApp extends Application {
         super.onCreate();
 
         LogUtils.getLogConfig()
+                .configShowBorders(false)
                 .configTagPrefix(BuildConfig.APPLICATION_ID);
     }
 }
