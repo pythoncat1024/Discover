@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.apkfuns.logutils.LogUtils;
 import com.pycat.phone.R;
 import com.pycat.phone.base.BaseActivity;
+import com.pycat.phone.base.PhoneApp;
 import com.pycat.phone.vm.PhoneViewModel;
+import com.python.cat.commonlib.utils.ToastHelper;
 import com.python.cat.splash.SplashFragment;
 
 import io.reactivex.disposables.Disposable;
@@ -45,6 +47,7 @@ public class PhoneActivity extends BaseActivity {
         } else {
             // load normal fragment
             LogUtils.e("load normal ui");
+            ToastHelper.show(PhoneApp.get(),"load normal...");
         }
 
     }
@@ -62,5 +65,7 @@ public class PhoneActivity extends BaseActivity {
         if (delayDisposable != null && !delayDisposable.isDisposed()) {
             delayDisposable.dispose();
         }
+
+        ToastHelper.cancel();
     }
 }
