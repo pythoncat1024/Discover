@@ -1,5 +1,6 @@
 package com.pycat.phone.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
@@ -28,5 +29,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         LogUtils.d("");
+    }
+
+    protected Activity get() {
+        if (isDestroyed() || isFinishing()) {
+            LogUtils.w("activity may be null or let memory leak ###");
+        }
+        return this;
     }
 }

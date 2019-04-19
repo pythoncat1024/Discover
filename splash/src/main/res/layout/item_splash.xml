@@ -11,12 +11,13 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name" />
 
-    <TextView
+    <Button
         android:id="@+id/pager_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@drawable/circle_point"
+        android:enabled="false"
         android:padding="@dimen/dp_8"
         android:textColor="@color/collect_red"
         android:textSize="16sp"

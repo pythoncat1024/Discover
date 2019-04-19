@@ -30,6 +30,8 @@ public class SplashFragment extends Fragment {
     private final int pageSize = 1 + 2 + 3;
     private Disposable disposable;
 
+    private Runnable done;
+
     public SplashFragment() {
         // Required empty public constructor
     }
@@ -66,6 +68,7 @@ public class SplashFragment extends Fragment {
                             PagerAdapter adapter = new PagerAdapter(splash);
                             mViewPager2.setAdapter(adapter);
                             LogUtils.v(splash);
+                            adapter.setCompleteListener(done);
                         },
                         LogUtils::e,
                         () -> {
@@ -85,6 +88,10 @@ public class SplashFragment extends Fragment {
         if (mViewModel != null) {
             LogUtils.v(mViewModel.hashCode());
         }
+    }
+
+    public void setCompleteListener(Runnable runnable) {
+        this.done = runnable;
     }
 }
 
