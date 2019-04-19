@@ -24,7 +24,10 @@ android {
 
     dynamicFeatures = [":dynamic_feature", ":instant_dynamic"]
 
-
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
