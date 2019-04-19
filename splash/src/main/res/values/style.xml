@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.AppCompat.CompoundButton.CheckBox.Circle">
+        <!--<item name="buttonCompat">@drawable/circle_point</item>-->
+        <item name="android:button">@drawable/circle_point</item>
+    </style>
+</resources>
