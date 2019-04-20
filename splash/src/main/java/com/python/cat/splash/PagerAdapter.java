@@ -18,7 +18,7 @@ import java.util.Locale;
 public class PagerAdapter extends RecyclerView.Adapter<PagerAdapter.VH> {
 
     private final Splash bean;
-    private Runnable runable;
+    private Runnable run;
 
     PagerAdapter(Splash bean) {
         this.bean = bean;
@@ -38,15 +38,21 @@ public class PagerAdapter extends RecyclerView.Adapter<PagerAdapter.VH> {
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
 
+
         if (bean.error) {
             holder.img.setImageResource(R.drawable.ic_sentiment_dissatisfied_black_24dp);
             holder.tv.setText(String.format(Locale.getDefault(), "%s/%s", 1, 1));
         } else {
+            String url = bean.results.get(position).url;
+            holder.img.setTag(null);
             Glide.with(holder.img.getContext())
-                    .load(bean.results.get(position).url)
+
+                    .load(url)
+                    .placeholder(R.drawable.button_long_selector)
+                    .error(R.drawable.button_border_selector)
                     .centerCrop()
-                    .dontAnimate()
                     .into(holder.img);
+            holder.img.setTag(url);
 
             String text = String.format(Locale.getDefault(), "%s/%s",
                     position + 1, bean.results.size());
@@ -55,8 +61,8 @@ public class PagerAdapter extends RecyclerView.Adapter<PagerAdapter.VH> {
             holder.tv.setEnabled(position + 1 == bean.results.size());
 
             holder.tv.setOnClickListener(v -> {
-                if (runable != null) {
-                    runable.run();
+                if (run != null) {
+                    run.run();
                 }
                 LogUtils.d("complete splash #### ");
             });
@@ -81,7 +87,7 @@ public class PagerAdapter extends RecyclerView.Adapter<PagerAdapter.VH> {
 
 
     public void setCompleteListener(Runnable runnable) {
-        this.runable = runnable;
+        this.run = runnable;
 
     }
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_8"
+    tools:context=".login.LoginFragment">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/dp_8"
+        android:text="@string/login"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_24" />
+
+    <RelativeLayout
+        android:id="@+id/username_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_username"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_36"
+            android:gravity="center_vertical|start"
+            android:padding="@dimen/dp_8"
+            android:text="@string/username"
+            android:textSize="@dimen/sp_18" />
+
+        <EditText
+            android:id="@+id/edit_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/text_username"
+            android:layout_toRightOf="@id/text_username"
+            android:gravity="center"
+            android:hint="@string/username"
+            android:inputType="text"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
+            android:textSize="@dimen/sp_18" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/password_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_password"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_36"
+            android:gravity="center_vertical|start"
+            android:padding="@dimen/dp_8"
+            android:text="@string/password"
+            android:textSize="@dimen/sp_18" />
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/text_password"
+            android:layout_toRightOf="@id/text_password"
+            android:gravity="center"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
+            android:textSize="@dimen/sp_18" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/remember_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/checkbox_remember"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_36"
+            android:clickable="false"
+            android:gravity="center"
+            android:padding="@dimen/dp_8"
+            android:paddingStart="@dimen/dp_36"
+            android:paddingLeft="@dimen/dp_36"
+            android:paddingEnd="@dimen/dp_36"
+            android:paddingRight="@dimen/dp_36"
+            android:text="@string/remember_account"
+            android:textSize="@dimen/sp_18" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_login_now"
+        style="@style/BorderButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24"
+        android:text="@string/login"
+        android:translationZ="@dimen/dp_8"
+        tools:targetApi="lollipop" />
+
+</LinearLayout>

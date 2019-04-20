@@ -1,1 +1,1 @@
-include ':app', ':phone', ':filelibrary', ':Javalib', ':discover', ':dynamic_feature', ':instant_dynamic', ':commonlib', ':splash'
+include ':app', ':phone', ':filelibrary', ':Javalib', ':discover', ':dynamic_feature', ':instant_dynamic', ':commonlib', ':splash', ':accounts'

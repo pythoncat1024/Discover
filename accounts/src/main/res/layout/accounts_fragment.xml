@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".play.AccountsFragment">
+
+    <TextView
+        android:id="@+id/account_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_24"
+        android:gravity="center"
+        android:text="@string/accounts"
+        android:textColor="@color/button_long_text_selector"
+        android:textSize="@dimen/sp_18" />
+
+    <ImageView
+        android:src="@drawable/button_border_selector"
+        android:id="@+id/account_avatar"
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="@dimen/dp_160"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_60"
+        android:contentDescription="@string/login" />
+
+    <LinearLayout
+        android:id="@+id/account_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_240"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_16">
+
+        <Button
+            android:id="@+id/btn_register"
+            style="@style/LongButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register" />
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/LongButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            style="@style/LongButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/logout" />
+
+        <Button
+            android:id="@+id/btn_exit"
+            style="@style/LongButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exit_app" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/account_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_24"
+        android:background="@drawable/button_border_selector"
+        android:gravity="center"
+        android:padding="@dimen/dp_8"
+        android:text="@string/account_status"
+        android:textColor="@color/button_long_text_selector"
+        android:textSize="@dimen/sp_18" />
+
+</FrameLayout>

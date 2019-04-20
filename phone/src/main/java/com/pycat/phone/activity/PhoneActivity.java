@@ -10,6 +10,7 @@ import com.pycat.phone.R;
 import com.pycat.phone.base.BaseActivity;
 import com.pycat.phone.base.PhoneApp;
 import com.pycat.phone.vm.PhoneViewModel;
+import com.python.cat.accounts.play.AccountsFragment;
 import com.python.cat.commonlib.utils.ToastHelper;
 import com.python.cat.splash.SplashFragment;
 import com.python.cat.splash.funny.FunnyFragment;
@@ -61,7 +62,7 @@ public class PhoneActivity extends BaseActivity {
     }
 
     private void loadNormal(int containerID) {
-        FunnyFragment fragment = FunnyFragment.newInstance();
+        AccountsFragment fragment = AccountsFragment.newInstance();
         inUseFragment = fragment;
         getSupportFragmentManager()
                 .beginTransaction()

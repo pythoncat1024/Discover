@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="LongButton" parent="Widget.AppCompat.Button">
+        <item name="android:padding">@dimen/dp_8</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:minHeight">@dimen/dp_20</item>
+        <item name="android:minWidth">@dimen/dp_240</item>
+        <item name="android:textColor">@color/button_long_text_selector</item>
+        <item name="android:background">@drawable/button_long_selector</item>
+        <item name="android:layout_marginBottom">@dimen/dp_24</item>
+        <item name="android:layout_marginStart">@dimen/dp_30</item>
+        <item name="android:layout_marginLeft">@dimen/dp_30</item>
+        <item name="android:layout_marginEnd">@dimen/dp_30</item>
+        <item name="android:layout_marginRight">@dimen/dp_30</item>
+    </style>
+
+    <style name="BorderButton" parent="Widget.AppCompat.Button">
+        <item name="android:padding">@dimen/dp_8</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:minHeight">@dimen/dp_20</item>
+        <item name="android:minWidth">@dimen/dp_240</item>
+        <item name="android:textColor">@color/button_long_text_selector</item>
+        <item name="android:background">@drawable/button_border_selector</item>
+        <item name="android:layout_marginBottom">@dimen/dp_24</item>
+        <item name="android:layout_marginStart">@dimen/dp_30</item>
+        <item name="android:layout_marginLeft">@dimen/dp_30</item>
+        <item name="android:layout_marginEnd">@dimen/dp_30</item>
+        <item name="android:layout_marginRight">@dimen/dp_30</item>
+    </style>
+</resources>
