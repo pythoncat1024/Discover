@@ -15,7 +15,10 @@ import com.pycat.phone.R;
 import com.pycat.phone.base.BaseActivity;
 import com.pycat.phone.base.PhoneApp;
 import com.pycat.phone.vm.PhoneViewModel;
+import com.pycat.schedule.todo.ScheduleListFragment;
+import com.python.cat.accounts.AccountsApp;
 import com.python.cat.accounts.play.AccountsFragment;
+import com.python.cat.commonlib.net.cookie.LocalCookieIO;
 import com.python.cat.commonlib.utils.ToastHelper;
 import com.python.cat.splash.SplashFragment;
 import com.python.cat.splash.funny.FunnyFragment;
@@ -48,18 +51,24 @@ public class PhoneActivity extends BaseActivity {
     }
 
     private void loadNormal(int containerID) {
-        AccountsFragment fragment = AccountsFragment.newInstance();
-        inUseFragment = fragment;
+        if (AccountsApp.online(this)) {
+            // 去内容页面
+            inUseFragment = ScheduleListFragment.newInstance();
+        } else {
+            // 去登录管理界面
+            inUseFragment = AccountsFragment.newInstance();
+        }
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(containerID, fragment)
+                .replace(containerID, inUseFragment)
                 .commitAllowingStateLoss()
         ;
     }
 
     //    ####################################################################################
-//    开始生命周期方法 { ->
-//    ####################################################################################
+    //    开始生命周期方法 { ->
+    //    ####################################################################################
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,9 +150,9 @@ public class PhoneActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
     }
-//    ####################################################################################
-//    结束生命周期方法  <- }
-//    ####################################################################################
+    //    ####################################################################################
+    //    结束生命周期方法  <- }
+    //    ####################################################################################
 
 
     @Override
