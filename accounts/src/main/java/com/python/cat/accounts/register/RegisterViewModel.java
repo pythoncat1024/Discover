@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.ViewModel;
 
+import com.apkfuns.logutils.LogUtils;
 import com.python.cat.commonlib.net.domain.RegisterResult;
 import com.python.cat.commonlib.net.http.WanRequest;
 
@@ -15,6 +16,7 @@ public class RegisterViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        LogUtils.e("super");
     }
 
 

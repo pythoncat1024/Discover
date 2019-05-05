@@ -25,4 +25,27 @@ public class HttpClient {
                 .addInterceptor(new ReceivedCookies(context))
                 .build();
     }
+    /**
+     * a http client contains cookie store and use
+     */
+    public static OkHttpClient storeCookieClient(@NonNull Context context) {
+        /**
+         * Somewhere you create a new OkHttpClient and use it on all your requests.
+         */
+        return new OkHttpClient.Builder()
+                .addInterceptor(new AddCookies(context))
+                .addInterceptor(new ReceivedCookies(context))
+                .build();
+    } /**
+     * a http client contains cookie store and use
+     */
+    public static OkHttpClient useCookieClient(@NonNull Context context) {
+        /**
+         * Somewhere you create a new OkHttpClient and use it on all your requests.
+         */
+        return new OkHttpClient.Builder()
+                .addInterceptor(new AddCookies(context))
+                .addInterceptor(new ReceivedCookies(context))
+                .build();
+    }
 }

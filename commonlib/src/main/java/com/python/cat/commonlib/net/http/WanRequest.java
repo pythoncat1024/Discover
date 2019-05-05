@@ -12,6 +12,7 @@ import com.python.cat.commonlib.net.domain.RegisterResult;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -28,46 +29,58 @@ public class WanRequest {
     private Retrofit retrofit = null;
 
     @WorkerThread
-    private Retrofit getRetrofit(@NonNull Context context) {
+    private Retrofit retrofitStoreCookie(@NonNull Context context) {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(WanService.BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(HttpClient.cookieClient(context))
+                    .client(HttpClient.storeCookieClient(context))
                     .build();
         }
         return retrofit;
     }
 
-    public Flowable<LoginResult> login(Context context, String username,
-                                       String password) {
+    @WorkerThread
+    private Retrofit retrofitUseCookie(@NonNull Context context) {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(WanService.BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(new OkHttpClient.Builder().build())
+                    .build();
+        }
+        return retrofit;
+    }
+
+    public Flowable<LoginResult> login(@NonNull Context context,
+                                       String username, String password) {
         /*
-        .subscribeOn(Schedulers.io()) .observeOn(AppSchedulers.mainThread())
+         .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
          */
-        return getRetrofit(context)
+        return retrofitStoreCookie(context)
                 .create(WanService.class)
                 .login(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }
 
-    public Flowable<RegisterResult> register(Context context, String username,
-                                             String password, String rePassword) {
-        /*
-        .subscribeOn(Schedulers.io()) .observeOn(AppSchedulers.mainThread())
-         */
-        return getRetrofit(context)
+    public Flowable<RegisterResult> register(@NonNull Context context,
+                                             String username, String password, String rePassword) {
+        return retrofitStoreCookie(context)
                 .create(WanService.class)
-                .register(username, password,rePassword)
+                .register(username, password, rePassword)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }
+
     public Flowable addTodo(Context context, String title,
                             String content,
                             String date,
                             int type) {
-        return getRetrofit(context).create(WanService.class).addTodo(title, content, date, type)
+        return retrofitUseCookie(context).create(WanService.class).addTodo(title, content, date, type)
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread());
     }

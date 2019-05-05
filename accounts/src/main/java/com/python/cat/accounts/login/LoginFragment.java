@@ -84,7 +84,6 @@ public class LoginFragment extends DialogFragment {
     }
 
     private void clickLogin() {
-        dismiss();
         String un = mEditUsername.getText().toString();
         String pw = mEditPassword.getText().toString();
 //        Disposable subscribe = WanRequest.getInstance().login(requireContext(), un, pw)
@@ -99,8 +98,7 @@ public class LoginFragment extends DialogFragment {
                     } else {
                         ToastHelper.show(requireContext(), rs.errorMsg);
                     }
-
-                }, LogUtils::w);
+                }, LogUtils::w, this::dismiss);
         LogUtils.i(subscribe);
     }
 
