@@ -11,8 +11,6 @@ import okhttp3.OkHttpClient;
  */
 public class HttpClient {
 
-    public static final String COOKIE_KEY = "store_cookie_in_sp";
-
     /**
      * a http client contains cookie store and use
      */

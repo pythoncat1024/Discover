@@ -36,7 +36,7 @@ public class AddCookies implements Interceptor {
         LogUtils.e(Thread.currentThread().getName());
         Request.Builder builder = chain.request().newBuilder();
         Set<String> stringSet = PreferenceManager.getDefaultSharedPreferences(mContext)
-                .getStringSet(HttpClient.COOKIE_KEY, new HashSet<>());
+                .getStringSet(LocalCookieIO.COOKIE_KEY, new HashSet<>());
         if (stringSet != null) {
             for (String cookie : stringSet) {
                 builder.addHeader("Cookie", cookie);

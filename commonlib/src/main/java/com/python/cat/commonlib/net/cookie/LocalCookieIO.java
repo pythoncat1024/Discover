@@ -9,17 +9,17 @@ import java.util.HashSet;
  * save cookie 2 sp, clear cookie from sp
  */
 public class LocalCookieIO {
-
+    public static final String COOKIE_KEY = "store_cookie_in_sp";
     public static void saveCookie(Context context, HashSet<String> cookies) {
         PreferenceManager.getDefaultSharedPreferences(context).edit()
-                .putStringSet(HttpClient.COOKIE_KEY, cookies)
+                .putStringSet(COOKIE_KEY, cookies)
                 .apply();
     }
 
     public static void clearCookie(Context context) {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
-                .remove(HttpClient.COOKIE_KEY)
+                .remove(COOKIE_KEY)
                 .apply();
 
     }

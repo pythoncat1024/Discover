@@ -15,17 +15,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.apkfuns.logutils.LogUtils;
 import com.python.cat.accounts.R;
 import com.python.cat.commonlib.net.cookie.LocalCookieIO;
-import com.python.cat.commonlib.net.http.WanRequest;
-import com.python.cat.commonlib.net.http.WanService;
 import com.python.cat.commonlib.utils.ToastHelper;
 
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterFragment extends DialogFragment {
 
@@ -94,36 +86,8 @@ public class RegisterFragment extends DialogFragment {
         String password = mEditPassword.getText().toString();
         String rePassword = mEditRePassword.getText().toString();
 
-//        disposable = mViewModel.register(requireContext(), username, password, rePassword)
-//                .subscribe(rs -> {
-//                    if (rs.errorCode == 0) {
-//                        ToastHelper.show(requireContext(), "register success");
-//                        if (!mCheckRemember.isChecked()) {
-//                            LocalCookieIO.clearCookie(requireContext());
-//                        }
-//                    } else {
-//                        ToastHelper.show(requireContext(), rs.errorMsg);
-//                    }
-//                    LogUtils.e(rs);
-//                    LogUtils.v(rs);
-//                }, LogUtils::e);
 
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(WanService.BASE_URL)
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        Disposable subscribe = retrofit.create(WanService.class)
-//                .register(username, password, rePassword)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(LogUtils::e, LogUtils::e);
-
-//        Disposable subscribe = WanRequest.getInstance()
-//                .register(requireContext(), username, password, rePassword)
-//                .subscribe(LogUtils::e, LogUtils::e);
-
-        Disposable subscribe = mViewModel.register(requireContext(), username, password, rePassword)
+        disposable = mViewModel.register(requireContext(), username, password, rePassword)
                 .subscribe(rs -> {
                     if (rs.errorCode == 0) {
                         ToastHelper.show(requireContext(), "register success: " + username);

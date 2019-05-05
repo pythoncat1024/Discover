@@ -3,12 +3,14 @@ package com.python.cat.accounts.play;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.python.cat.accounts.R;
 import com.python.cat.accounts.login.LoginFragment;
 import com.python.cat.accounts.register.RegisterFragment;
+import com.python.cat.commonlib.net.cookie.LocalCookieIO;
 import com.python.cat.commonlib.utils.ToastHelper;
 
 import java.util.concurrent.TimeUnit;
@@ -36,10 +39,11 @@ public class AccountsFragment extends Fragment {
 
     private AccountsViewModel mViewModel;
     private ImageView imgAvatar;
-    private ViewGroup accountCotainer;
+    private ViewGroup accountContainer;
     private Button btnExit, btnRegister, btnLogin, btnLogout;
     private TextView accountStatus;
     private Disposable disposable;
+    private SharedPreferences.OnSharedPreferenceChangeListener spListener;
 
     public static AccountsFragment newInstance() {
         return new AccountsFragment();
@@ -55,12 +59,34 @@ public class AccountsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         imgAvatar = view.findViewById(R.id.account_avatar);
-        accountCotainer = view.findViewById(R.id.account_container);
+        accountContainer = view.findViewById(R.id.account_container);
         btnExit = view.findViewById(R.id.btn_exit);
         btnLogin = view.findViewById(R.id.btn_login);
         btnLogout = view.findViewById(R.id.btn_logout);
         btnRegister = view.findViewById(R.id.btn_register);
         accountStatus = view.findViewById(R.id.account_status);
+        spListener = (sp, key) -> {
+            LogUtils.i("sp name = %s, key= %s",sp.toString(), key);
+            if (sp.contains(LocalCookieIO.COOKIE_KEY)) {
+                accountStatus.setEnabled(true);
+                accountStatus.setText(R.string.login_done);
+            } else {
+                accountStatus.setEnabled(false);
+                accountStatus.setText(R.string.login_undone);
+            }
+        };
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
+                .registerOnSharedPreferenceChangeListener(spListener);
+
+        boolean contains = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                .contains(LocalCookieIO.COOKIE_KEY);
+        if (contains) {
+            accountStatus.setEnabled(true);
+            accountStatus.setText(R.string.login_done);
+        } else {
+            accountStatus.setEnabled(false);
+            accountStatus.setText(R.string.login_undone);
+        }
         setClick();
     }
 
@@ -141,6 +167,10 @@ public class AccountsFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        if (spListener != null) {
+            PreferenceManager.getDefaultSharedPreferences(requireContext())
+                    .unregisterOnSharedPreferenceChangeListener(spListener);
+        }
         super.onDestroyView();
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
