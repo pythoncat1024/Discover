@@ -1,6 +1,7 @@
 package com.python.cat.commonlib.net.http;
 
 import com.python.cat.commonlib.net.domain.LoginResult;
+import com.python.cat.commonlib.net.domain.LogoutResult;
 import com.python.cat.commonlib.net.domain.RegisterResult;
 
 import io.reactivex.Flowable;
@@ -35,7 +36,7 @@ public interface WanService {
                                       @Field("repassword") String rePassword);
 
     @GET("user/logout/json")
-    Flowable<Object> logout();
+    Flowable<LogoutResult> logout();
 
     /**
      * 新增一条Todo

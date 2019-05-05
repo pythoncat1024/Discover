@@ -1,6 +1,11 @@
 package com.python.cat.accounts.play;
 
+import android.content.Context;
+import android.preference.PreferenceManager;
+
 import androidx.lifecycle.ViewModel;
+
+import com.python.cat.commonlib.net.cookie.LocalCookieIO;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,8 +25,8 @@ public class AccountsViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public boolean online() {
-        // todo add logic
-        return false;
+    public boolean online(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .contains(LocalCookieIO.COOKIE_KEY);
     }
 }

@@ -19,13 +19,13 @@
         android:textSize="@dimen/sp_18" />
 
     <ImageView
-        android:src="@drawable/button_border_selector"
         android:id="@+id/account_avatar"
         android:layout_width="@dimen/dp_160"
         android:layout_height="@dimen/dp_160"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_60"
-        android:contentDescription="@string/login" />
+        android:contentDescription="@string/login"
+        android:src="@drawable/button_border_selector" />
 
     <LinearLayout
         android:id="@+id/account_container"
@@ -73,9 +73,11 @@
         android:layout_marginStart="@dimen/dp_24"
         android:layout_marginEnd="@dimen/dp_24"
         android:background="@drawable/button_border_selector"
+        android:enabled="false"
         android:gravity="center"
+        android:hint="@string/account_status"
         android:padding="@dimen/dp_8"
-        android:text="@string/account_status"
+        android:text="@string/login_undone"
         android:textColor="@color/button_long_text_selector"
         android:textSize="@dimen/sp_18" />
 

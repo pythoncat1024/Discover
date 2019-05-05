@@ -7,6 +7,7 @@ import androidx.annotation.WorkerThread;
 
 import com.python.cat.commonlib.net.cookie.HttpClient;
 import com.python.cat.commonlib.net.domain.LoginResult;
+import com.python.cat.commonlib.net.domain.LogoutResult;
 import com.python.cat.commonlib.net.domain.RegisterResult;
 
 import io.reactivex.Flowable;
@@ -72,6 +73,18 @@ public class WanRequest {
         return retrofitStoreCookie(context)
                 .create(WanService.class)
                 .register(username, password, rePassword)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Flowable<LogoutResult> logout(Context context) {
+        /*
+         .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+         */
+        return retrofitStoreCookie(context)
+                .create(WanService.class)
+                .logout()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }

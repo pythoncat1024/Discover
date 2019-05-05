@@ -22,6 +22,7 @@ import com.apkfuns.logutils.LogUtils;
 import com.bumptech.glide.Glide;
 import com.python.cat.accounts.R;
 import com.python.cat.accounts.login.LoginFragment;
+import com.python.cat.accounts.logout.LogoutFragment;
 import com.python.cat.accounts.register.RegisterFragment;
 import com.python.cat.commonlib.net.cookie.LocalCookieIO;
 import com.python.cat.commonlib.utils.ToastHelper;
@@ -65,8 +66,9 @@ public class AccountsFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btn_logout);
         btnRegister = view.findViewById(R.id.btn_register);
         accountStatus = view.findViewById(R.id.account_status);
+        accountStatus.setEnabled(false);
         spListener = (sp, key) -> {
-            LogUtils.i("sp name = %s, key= %s",sp.toString(), key);
+            LogUtils.i("sp name = %s, key= %s", sp.toString(), key);
             if (sp.contains(LocalCookieIO.COOKIE_KEY)) {
                 accountStatus.setEnabled(true);
                 accountStatus.setText(R.string.login_done);
@@ -74,6 +76,7 @@ public class AccountsFragment extends Fragment {
                 accountStatus.setEnabled(false);
                 accountStatus.setText(R.string.login_undone);
             }
+            refreshLayout();
         };
         PreferenceManager.getDefaultSharedPreferences(requireContext())
                 .registerOnSharedPreferenceChangeListener(spListener);
@@ -87,7 +90,20 @@ public class AccountsFragment extends Fragment {
             accountStatus.setEnabled(false);
             accountStatus.setText(R.string.login_undone);
         }
+
         setClick();
+    }
+
+    private void refreshLayout() {
+        if (mViewModel.online(requireContext())) {
+            btnRegister.setEnabled(false);
+            btnLogin.setEnabled(false);
+            btnLogout.setEnabled(true);
+        } else {
+            btnRegister.setEnabled(true);
+            btnLogin.setEnabled(true);
+            btnLogout.setEnabled(false);
+        }
     }
 
     private void setClick() {
@@ -100,13 +116,19 @@ public class AccountsFragment extends Fragment {
         });
 
         btnLogout.setOnClickListener(v -> {
-            ToastHelper.show(requireContext(), "界面太多，不实现了");
             LogUtils.v("logout...");
+            FragmentManager fragmentManager = getFragmentManager();
+            if (fragmentManager == null) {
+                ToastHelper.show(requireContext(), "fm == null");
+                LogUtils.e("fm == null");
+                return;
+            }
+            LogoutFragment.newInstance().show(fragmentManager, LogoutFragment.TAG);
         });
 
         btnExit.setOnClickListener(v -> {
             ToastHelper.show(requireContext(), "退出程序！！！");
-            Disposable subscribe = Flowable.timer(1, TimeUnit.SECONDS)
+            disposable = Flowable.timer(1, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(LogUtils::v, LogUtils::e, () -> {
                         requireActivity().finish();
@@ -141,17 +163,8 @@ public class AccountsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(AccountsViewModel.class);
         loadImg();
-        btnExit.setEnabled(true);
-        if (mViewModel.online()) {
-            btnRegister.setEnabled(false);
-            btnLogin.setEnabled(false);
-            btnExit.setEnabled(true);
-        } else {
-            btnRegister.setEnabled(true);
-            btnLogin.setEnabled(true);
-            btnExit.setEnabled(false);
-
-        }
+        btnExit.setEnabled(false);
+        refreshLayout();
     }
 
     private void loadImg() {

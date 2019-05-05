@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_8"
+    tools:context=".login.LoginFragment">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/dp_8"
+        android:text="@string/logout"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_24" />
+
+    <RelativeLayout
+        android:id="@+id/remember_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/checkbox_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_36"
+            android:checked="true"
+            android:clickable="false"
+            android:enabled="false"
+            android:gravity="center"
+            android:padding="@dimen/dp_8"
+            android:paddingStart="@dimen/dp_36"
+            android:paddingLeft="@dimen/dp_36"
+            android:paddingEnd="@dimen/dp_36"
+            android:paddingRight="@dimen/dp_36"
+            android:text="@string/clear_account"
+            android:textSize="@dimen/sp_18" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_logout_now"
+        style="@style/BorderButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24"
+        android:text="@string/logout"
+        android:translationZ="@dimen/dp_8"
+        tools:targetApi="lollipop" />
+
+</LinearLayout>

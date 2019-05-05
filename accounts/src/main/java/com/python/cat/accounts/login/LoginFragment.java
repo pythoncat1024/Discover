@@ -88,7 +88,7 @@ public class LoginFragment extends DialogFragment {
         String pw = mEditPassword.getText().toString();
 //        Disposable subscribe = WanRequest.getInstance().login(requireContext(), un, pw)
 //                .subscribe(LogUtils::e, LogUtils::w);
-        Disposable subscribe = mViewModel.login(requireContext(), un, pw)
+        disposable = mViewModel.login(requireContext(), un, pw)
                 .subscribe(rs -> {
                     if (rs.errorCode == 0) {
                         ToastHelper.show(requireContext(), "login success");
@@ -99,7 +99,7 @@ public class LoginFragment extends DialogFragment {
                         ToastHelper.show(requireContext(), rs.errorMsg);
                     }
                 }, LogUtils::w, this::dismiss);
-        LogUtils.i(subscribe);
+        LogUtils.i(disposable);
     }
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import okhttp3.CookieJar;
 import okhttp3.OkHttpClient;
 
 /**
@@ -33,6 +34,7 @@ public class HttpClient {
         return new OkHttpClient.Builder()
                 .addInterceptor(new AddCookies(context))
                 .addInterceptor(new ReceivedCookies(context))
+               
                 .build();
     } /**
      * a http client contains cookie store and use
@@ -44,6 +46,7 @@ public class HttpClient {
         return new OkHttpClient.Builder()
                 .addInterceptor(new AddCookies(context))
                 .addInterceptor(new ReceivedCookies(context))
+               
                 .build();
     }
 }
