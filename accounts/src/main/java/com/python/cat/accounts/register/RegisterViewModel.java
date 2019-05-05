@@ -1,6 +1,11 @@
 package com.python.cat.accounts.register;
 
+import android.content.Context;
+
 import androidx.lifecycle.ViewModel;
+
+import com.python.cat.commonlib.net.domain.RegisterResult;
+import com.python.cat.commonlib.net.http.WanRequest;
 
 import io.reactivex.Flowable;
 
@@ -13,8 +18,8 @@ public class RegisterViewModel extends ViewModel {
     }
 
 
-    public Flowable<RegisterResult> register(String username, String password, String rePassword) {
-        // TODO: 2019-04-20  need logic
-        return null;
+    public Flowable<RegisterResult> register(Context context,
+                                             String username, String password, String rePassword) {
+        return WanRequest.getInstance().register(context, username, password, rePassword);
     }
 }

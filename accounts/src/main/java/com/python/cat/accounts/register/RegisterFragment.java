@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.apkfuns.logutils.LogUtils;
 import com.python.cat.accounts.R;
+import com.python.cat.commonlib.net.cookie.LocalCookieIO;
+import com.python.cat.commonlib.utils.ToastHelper;
 
 import io.reactivex.disposables.Disposable;
 
@@ -31,8 +33,6 @@ public class RegisterFragment extends DialogFragment {
     private EditText mEditRePassword;
 
     private CheckBox mCheckRemember;
-    private ViewGroup mRememberLayout;
-    private View mBtnRegister;
     private Disposable disposable;
 
 
@@ -65,8 +65,8 @@ public class RegisterFragment extends DialogFragment {
         mEditPassword = view.findViewById(R.id.edit_password);
         mEditRePassword = view.findViewById(R.id.edit_re_password);
         mCheckRemember = view.findViewById(R.id.checkbox_remember);
-        mRememberLayout = view.findViewById(R.id.remember_rl);
-        mBtnRegister = view.findViewById(R.id.btn_register_now);
+        ViewGroup mRememberLayout = view.findViewById(R.id.remember_rl);
+        View mBtnRegister = view.findViewById(R.id.btn_register_now);
 
         mEditUsername.clearFocus();
         mEditPassword.clearFocus();
@@ -77,23 +77,29 @@ public class RegisterFragment extends DialogFragment {
         });
 
         mBtnRegister.setOnClickListener(v -> {
-            dismiss();
-            String username = mEditUsername.getText().toString();
-            String password = mEditPassword.getText().toString();
-            String rePassword = mEditRePassword.getText().toString();
-
-            disposable = mViewModel.register(username, password, rePassword)
-                    .subscribe(t -> {
-                        // TODO: 2019-04-20 add always save cookie 2 sp
-                        if (mCheckRemember.isChecked()) {
-                            // save 2 sp
-                            LogUtils.v("xxx");
-                        }
-                        LogUtils.v(t);
-                        LogUtils.v(t);
-                    }, LogUtils::e);
-
+            clickRegister();
         });
+    }
+
+    private void clickRegister() {
+        dismiss();
+        String username = mEditUsername.getText().toString();
+        String password = mEditPassword.getText().toString();
+        String rePassword = mEditRePassword.getText().toString();
+
+        disposable = mViewModel.register(requireContext(), username, password, rePassword)
+                .subscribe(rs -> {
+                    if (rs.errorCode == 0) {
+                        ToastHelper.show(requireContext(), "login success");
+                        if (!mCheckRemember.isChecked()) {
+                            LocalCookieIO.clearCookie(requireContext());
+                        }
+                    } else {
+                        ToastHelper.show(requireContext(), rs.errorMsg);
+                    }
+                    LogUtils.e(rs);
+                    LogUtils.v(rs);
+                }, LogUtils::e);
     }
 
     @Override

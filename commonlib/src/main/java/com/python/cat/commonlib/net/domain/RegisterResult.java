@@ -1,7 +1,13 @@
-package com.python.cat.accounts.register;
+package com.python.cat.commonlib.net.domain;
 
 import java.util.List;
 
+/**
+ * a java bean class
+ *
+ * @see com.python.cat.commonlib.net.http.WanService#register(String, String, String)
+ */
+@SuppressWarnings("JavadocReference")
 public class RegisterResult {
 
 

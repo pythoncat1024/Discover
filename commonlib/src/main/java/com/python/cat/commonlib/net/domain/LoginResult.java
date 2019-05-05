@@ -1,7 +1,13 @@
-package com.python.cat.accounts.login;
+package com.python.cat.commonlib.net.domain;
 
 import java.util.List;
 
+/**
+ * a java bean class
+ *
+ * @see com.python.cat.commonlib.net.http.WanService#login(String, String)
+ */
+@SuppressWarnings("JavadocReference")
 public class LoginResult {
 
 

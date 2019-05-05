@@ -1,6 +1,11 @@
 package com.python.cat.accounts.login;
 
+import android.content.Context;
+
 import androidx.lifecycle.ViewModel;
+
+import com.apkfuns.logutils.LogUtils;
+import com.python.cat.commonlib.net.domain.LoginResult;
 
 import io.reactivex.Flowable;
 
@@ -12,9 +17,9 @@ public class LoginViewModel extends ViewModel {
     }
 
 
-    public Flowable<LoginResult> login(String username, String password) {
-        // TODO: 2019-04-20 need logic
-        return null;
+    public Flowable<LoginResult> login(Context context, String username, String password) {
+        LogUtils.e("login::: %s,%s", username, password);
+        return LoginEngine.login(context, username, password);
     }
 
 }

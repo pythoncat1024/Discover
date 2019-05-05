@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.apkfuns.logutils.LogUtils;
 import com.python.cat.accounts.R;
+import com.python.cat.commonlib.net.cookie.LocalCookieIO;
+import com.python.cat.commonlib.utils.ToastHelper;
 
 import io.reactivex.disposables.Disposable;
 
@@ -66,28 +68,40 @@ public class LoginFragment extends DialogFragment {
         mEditUsername.clearFocus();
         mEditPassword.clearFocus();
         view.requestFocus();
-
+        final String username = "pythoncat";
+        final String password = "wanandroid123";
+        mEditUsername.setText(username);
+        mEditUsername.setSelection(username.length());
+        mEditPassword.setText(password);
+        mEditPassword.setSelection(password.length());
         mRememberLayout.setOnClickListener(v -> {
             mCheckRemember.setChecked(!mCheckRemember.isChecked());
         });
 
         mBtnLogin.setOnClickListener(v -> {
-            dismiss();
-            String username = mEditUsername.getText().toString();
-            String password = mEditPassword.getText().toString();
-
-            disposable = mViewModel.login(username, password)
-                    .subscribe(t -> {
-                        // TODO: 2019-04-20 add always save cookie 2 sp
-                        if (mCheckRemember.isChecked()) {
-                            // save 2 sp
-                            LogUtils.v("xxx");
-                        }
-                        LogUtils.v(t);
-                        LogUtils.v(t);
-                    }, LogUtils::e);
-
+            clickLogin();
         });
+    }
+
+    private void clickLogin() {
+        dismiss();
+        String un = mEditUsername.getText().toString();
+        String pw = mEditPassword.getText().toString();
+//        Disposable subscribe = WanRequest.getInstance().login(requireContext(), un, pw)
+//                .subscribe(LogUtils::e, LogUtils::w);
+        Disposable subscribe = mViewModel.login(requireContext(), un, pw)
+                .subscribe(rs -> {
+                    if (rs.errorCode == 0) {
+                        ToastHelper.show(requireContext(), "login success");
+                        if (!mCheckRemember.isChecked()) {
+                            LocalCookieIO.clearCookie(requireContext());
+                        }
+                    } else {
+                        ToastHelper.show(requireContext(), rs.errorMsg);
+                    }
+
+                }, LogUtils::w);
+        LogUtils.i(subscribe);
     }
 
 
