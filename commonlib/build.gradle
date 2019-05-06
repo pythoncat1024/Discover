@@ -48,4 +48,7 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.5.0'
     api 'com.squareup.retrofit2:converter-protobuf:2.5.0'
     api 'me.jessyan:autosize:1.1.2' // 屏幕适配
+    api 'com.facebook.stetho:stetho:1.5.1' // chrome://inspect/#devices
+    api 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+    api 'com.facebook.stetho:stetho-js-rhino:1.5.1'
 }

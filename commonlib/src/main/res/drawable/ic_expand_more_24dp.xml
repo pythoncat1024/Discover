@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="12dp"
+    android:tint="#ffffff"
+    android:viewportWidth="22.0"
+    android:viewportHeight="16.0">
+    <!--
+    android:viewportWidth 画布的宽度
+    https://www.cnblogs.com/bvin/p/4317852.html
+    然后还有个android:viewportHeight和android:viewportWidth属性，这个是画布宽高，也是必填的，
+    定义Path路径的时候就必须在这个画布大小里去绘制，超出画布就显示不出来了。
+    -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M16.59,8.59L12,13.17 7.41,8.59 6,10l6,6 6,-6z" />
+</vector>

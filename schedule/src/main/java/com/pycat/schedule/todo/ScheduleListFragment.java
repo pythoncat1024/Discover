@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ public class ScheduleListFragment extends Fragment {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressbar;
+    private SearchView mSearchView;
 
     public ScheduleListFragment() {
     }
@@ -46,13 +48,8 @@ public class ScheduleListFragment extends Fragment {
         mSwipeRefreshLayout = view.findViewById(R.id.schedule_refresh_layout);
         mRecyclerView = view.findViewById(R.id.schedule_rv_layout);
         mProgressbar = view.findViewById(R.id.schedule_loading_progress);
-        initUI();
+        mSearchView = view.findViewById(R.id.schedule_search);
 
-    }
-
-    private void initUI() {
-        mProgressbar.setVisibility(View.VISIBLE);
-        mSwipeRefreshLayout.setVisibility(View.GONE);
     }
 
     @Override

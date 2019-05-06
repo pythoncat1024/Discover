@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">schedule</string>
+    <string name="title_activity_ttt">tttActivity</string>
+    <string name="schedule_list">ScheduleList</string>
 </resources>
