@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dp_1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/item_schedule_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_6" />
+
+        <TextView
+            android:id="@+id/item_schedule_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/item_schedule_check"
+            tools:text="2019-03-12" />
+
+        <TextView
+            android:id="@+id/item_schedule_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_schedule_date"
+            android:layout_toEndOf="@id/item_schedule_check"
+            android:lines="1"
+            tools:text="title" />
+
+        <TextView
+            android:id="@+id/item_schedule_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_schedule_title"
+            android:layout_toEndOf="@id/item_schedule_check"
+            android:lines="1"
+            tools:text="你好吗，我昨天吃了3碗饭。你呢，吃了几碗？" />
+
+        <ImageView
+            android:id="@+id/item_schedule_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/schedule_list"
+            android:src="@drawable/ic_delete_forever_24dp" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
