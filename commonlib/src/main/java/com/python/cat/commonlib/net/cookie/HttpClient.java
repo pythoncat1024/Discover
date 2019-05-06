@@ -32,9 +32,7 @@ public class HttpClient {
          * Somewhere you create a new OkHttpClient and use it on all your requests.
          */
         return new OkHttpClient.Builder()
-                .addInterceptor(new AddCookies(context))
                 .addInterceptor(new ReceivedCookies(context))
-               
                 .build();
     } /**
      * a http client contains cookie store and use
@@ -45,8 +43,6 @@ public class HttpClient {
          */
         return new OkHttpClient.Builder()
                 .addInterceptor(new AddCookies(context))
-                .addInterceptor(new ReceivedCookies(context))
-               
                 .build();
     }
 }

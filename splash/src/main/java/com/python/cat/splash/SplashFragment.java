@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.apkfuns.logutils.LogUtils;
@@ -31,6 +32,7 @@ public class SplashFragment extends Fragment {
     private Disposable disposable;
 
     private Runnable done;
+    private PagerAdapter mAdapter;
 
     public SplashFragment() {
         // Required empty public constructor
@@ -65,10 +67,10 @@ public class SplashFragment extends Fragment {
         LogUtils.d("page size %s", pageSize);
         disposable = mViewModel.getSplash(pageSize)
                 .subscribe(splash -> {
-                            PagerAdapter adapter = new PagerAdapter(splash);
-                            mViewPager2.setAdapter(adapter);
+                            mAdapter = new PagerAdapter(splash);
+                            mViewPager2.setAdapter(mAdapter);
                             LogUtils.v(splash);
-                            adapter.setCompleteListener(done);
+                            mAdapter.setCompleteListener(done);
                         },
                         LogUtils::e,
                         () -> {
@@ -93,5 +95,6 @@ public class SplashFragment extends Fragment {
     public void setCompleteListener(Runnable runnable) {
         this.done = runnable;
     }
+
 }
 

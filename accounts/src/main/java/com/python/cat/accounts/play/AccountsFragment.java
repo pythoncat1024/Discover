@@ -1,15 +1,7 @@
 package com.python.cat.accounts.play;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.apkfuns.logutils.LogUtils;
 import com.bumptech.glide.Glide;
@@ -45,6 +43,7 @@ public class AccountsFragment extends Fragment {
     private TextView accountStatus;
     private Disposable disposable;
     private SharedPreferences.OnSharedPreferenceChangeListener spListener;
+    private View.OnClickListener mAvatarClickListener;
 
     public static AccountsFragment newInstance() {
         return new AccountsFragment();
@@ -108,10 +107,12 @@ public class AccountsFragment extends Fragment {
 
     private void setClick() {
         btnLogin.setOnClickListener(v -> {
+            LogUtils.i("");
             toLogin();
         });
 
         btnRegister.setOnClickListener(v -> {
+            LogUtils.i("");
             toRegister();
         });
 
@@ -168,14 +169,17 @@ public class AccountsFragment extends Fragment {
     }
 
     private void loadImg() {
-        disposable = mViewModel.getImageUri().subscribe(play -> {
-            String url = play.results.get(0).url;
-            Glide.with(requireContext())
-                    .load(url)
-                    .centerCrop()
-                    //                    .circleCrop()
-                    .into(imgAvatar);
-        }, LogUtils::e);
+        disposable = mViewModel.getImageUri().subscribe(
+                play -> {
+                    String url = play.results.get(0).url;
+                    Glide.with(requireContext())
+                            .load(url)
+                            .centerCrop()
+                            //                    .circleCrop()
+                            .into(imgAvatar);
+                },
+                LogUtils::e,
+                () -> imgAvatar.setOnClickListener(mAvatarClickListener));
     }
 
     @Override
@@ -188,5 +192,9 @@ public class AccountsFragment extends Fragment {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+    }
+
+    public void setImgAvatarClick(View.OnClickListener listener) {
+        this.mAvatarClickListener = listener;
     }
 }

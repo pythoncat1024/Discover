@@ -1,5 +1,7 @@
 package com.pycat.schedule.todo;
 
+import android.content.Context;
+
 import androidx.lifecycle.ViewModel;
 
 import com.python.cat.commonlib.net.domain.ScheduleInfo;
@@ -13,9 +15,8 @@ public class ScheduleListViewModel extends ViewModel {
         super.onCleared();
     }
 
+    public Flowable<ScheduleInfo> getScheduleList(Context context, int type) {
 
-    public Flowable<ScheduleInfo> getScheduleList(int type) {
-
-        return null;
+        return ScheduleEngine.getScheduleList(context, type);
     }
 }

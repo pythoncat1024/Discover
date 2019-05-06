@@ -3,6 +3,7 @@ package com.python.cat.commonlib.net.http;
 import com.python.cat.commonlib.net.domain.LoginResult;
 import com.python.cat.commonlib.net.domain.LogoutResult;
 import com.python.cat.commonlib.net.domain.RegisterResult;
+import com.python.cat.commonlib.net.domain.ScheduleInfo;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -110,6 +111,10 @@ public interface WanService {
     Flowable<Object> todoListDone(
             @Path("type") int type, @Path("page") int page);
 
+    /**
+     * 获取对应类型的 schedule list
+     * @param type 0/1/2/3
+     */
     @GET("lg/todo/list/{type}/json")
-    Flowable<Object> todoListDone(@Path("type") int type);
+    Flowable<ScheduleInfo> todoList(@Path("type") int type);
 }

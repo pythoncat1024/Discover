@@ -9,6 +9,7 @@ import com.python.cat.commonlib.net.cookie.HttpClient;
 import com.python.cat.commonlib.net.domain.LoginResult;
 import com.python.cat.commonlib.net.domain.LogoutResult;
 import com.python.cat.commonlib.net.domain.RegisterResult;
+import com.python.cat.commonlib.net.domain.ScheduleInfo;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -49,7 +50,7 @@ public class WanRequest {
                     .baseUrl(WanService.BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(new OkHttpClient.Builder().build())
+                    .client(HttpClient.useCookieClient(context))
                     .build();
         }
         return retrofit;
@@ -94,8 +95,16 @@ public class WanRequest {
                             String date,
                             int type) {
         return retrofitUseCookie(context).create(WanService.class).addTodo(title, content, date, type)
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
     }
 
+    public Flowable<ScheduleInfo> getScheduleList(Context context,int type){
+
+        return retrofitUseCookie(context)
+                .create(WanService.class)
+                .todoList(type)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+    }
 }

@@ -37,8 +37,6 @@ public class PagerAdapter extends RecyclerView.Adapter<PagerAdapter.VH> {
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-
-
         if (bean.error) {
             holder.img.setImageResource(R.drawable.ic_sentiment_dissatisfied_black_24dp);
             holder.tv.setText(String.format(Locale.getDefault(), "%s/%s", 1, 1));
@@ -88,6 +86,5 @@ public class PagerAdapter extends RecyclerView.Adapter<PagerAdapter.VH> {
 
     public void setCompleteListener(Runnable runnable) {
         this.run = runnable;
-
     }
 }

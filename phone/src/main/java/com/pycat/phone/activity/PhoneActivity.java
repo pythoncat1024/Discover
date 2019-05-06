@@ -18,18 +18,13 @@ import com.pycat.phone.vm.PhoneViewModel;
 import com.pycat.schedule.todo.ScheduleListFragment;
 import com.python.cat.accounts.AccountsApp;
 import com.python.cat.accounts.play.AccountsFragment;
-import com.python.cat.commonlib.net.cookie.LocalCookieIO;
 import com.python.cat.commonlib.utils.ToastHelper;
 import com.python.cat.splash.SplashFragment;
-import com.python.cat.splash.funny.FunnyFragment;
-
-import io.reactivex.disposables.Disposable;
 
 public class PhoneActivity extends BaseActivity {
 
     private Fragment inUseFragment;
     private PhoneViewModel mViewModel;
-    private Disposable delayDisposable;
 
     private void loadWelcome(int containerID) {
         SplashFragment splashF = SplashFragment.newInstance();
@@ -51,17 +46,36 @@ public class PhoneActivity extends BaseActivity {
     }
 
     private void loadNormal(int containerID) {
-        if (AccountsApp.online(this)) {
-            // 去内容页面
-            inUseFragment = ScheduleListFragment.newInstance();
-        } else {
-            // 去登录管理界面
-            inUseFragment = AccountsFragment.newInstance();
-        }
+        // 去登录管理界面
+        jump2Accounts(containerID);
+    }
 
+    private void jump2Accounts(int containerID) {
+        AccountsFragment fragment = AccountsFragment.newInstance();
+        fragment.setImgAvatarClick(v -> {
+            if (AccountsApp.online(this)) {
+                // 已登录，点击头像进入内容界面
+                jump2Content(containerID);
+            } else {
+                // 未登录，点击头像不进入内容界面
+                ToastHelper.show(this, "Register or Login fail , plase try again.");
+            }
+        });
+        this.inUseFragment = fragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(containerID, inUseFragment)
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        ;
+    }
+
+    private void jump2Content(int containerID) {
+        inUseFragment = ScheduleListFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(containerID, inUseFragment)
+                .addToBackStack(null)
                 .commitAllowingStateLoss()
         ;
     }
@@ -96,10 +110,6 @@ public class PhoneActivity extends BaseActivity {
                     .beginTransaction()
                     .remove(inUseFragment)
                     .commitNowAllowingStateLoss();
-        }
-
-        if (delayDisposable != null && !delayDisposable.isDisposed()) {
-            delayDisposable.dispose();
         }
 
         ToastHelper.cancel();
