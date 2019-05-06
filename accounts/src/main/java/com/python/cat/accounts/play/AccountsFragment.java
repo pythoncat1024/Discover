@@ -25,6 +25,7 @@ import com.python.cat.accounts.register.RegisterFragment;
 import com.python.cat.commonlib.net.cookie.LocalCookieIO;
 import com.python.cat.commonlib.utils.ToastHelper;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
@@ -44,6 +45,7 @@ public class AccountsFragment extends Fragment {
     private Disposable disposable;
     private SharedPreferences.OnSharedPreferenceChangeListener spListener;
     private View.OnClickListener mAvatarClickListener;
+    private TextView mTitleText;
 
     public static AccountsFragment newInstance() {
         return new AccountsFragment();
@@ -58,6 +60,7 @@ public class AccountsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mTitleText = view.findViewById(R.id.account_desc);
         imgAvatar = view.findViewById(R.id.account_avatar);
         accountContainer = view.findViewById(R.id.account_container);
         btnExit = view.findViewById(R.id.btn_exit);
@@ -89,7 +92,9 @@ public class AccountsFragment extends Fragment {
             accountStatus.setEnabled(false);
             accountStatus.setText(R.string.login_undone);
         }
-
+        mTitleText.setText(String.format(Locale.getDefault(), "%s\n%s",
+                getString(R.string.accounts),
+                getString(R.string.click_avatar)));
         setClick();
     }
 

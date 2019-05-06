@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -33,6 +34,7 @@ public class ScheduleListFragment extends Fragment {
     private Toolbar mToolbar;
     private TextView mTitle;
     private Disposable disposable;
+    private View.OnClickListener mBackListener;
 
     public ScheduleListFragment() {
     }
@@ -61,11 +63,17 @@ public class ScheduleListFragment extends Fragment {
         mSearchView = view.findViewById(R.id.schedule_search);
         mToolbar = view.findViewById(R.id.schedule_toolbar);
         mTitle = view.findViewById(R.id.schedule_title);
+        setClick();
+    }
+
+    private void setClick() {
         mToolbar.setNavigationOnClickListener(v -> {
             LogUtils.i("click back...");
             LogUtils.i("click back...");
             ToastHelper.show(requireContext(), "click back..");
-
+            if (mBackListener != null) {
+                mBackListener.onClick(v);
+            }
         });
         mTitle.setOnClickListener(v -> {
             LogUtils.i("click title...");
@@ -105,6 +113,10 @@ public class ScheduleListFragment extends Fragment {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+    }
+
+    public void setTitleLeftClick(View.OnClickListener leftClick) {
+        this.mBackListener = leftClick;
     }
 
 }

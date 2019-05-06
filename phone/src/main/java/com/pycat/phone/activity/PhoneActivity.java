@@ -58,7 +58,7 @@ public class PhoneActivity extends BaseActivity {
                 jump2Content(containerID);
             } else {
                 // 未登录，点击头像不进入内容界面
-                ToastHelper.show(this, "Register or Login fail , plase try again.");
+                ToastHelper.show(this, "Register or Login fail , please try again.");
             }
         });
         this.inUseFragment = fragment;
@@ -71,10 +71,15 @@ public class PhoneActivity extends BaseActivity {
     }
 
     private void jump2Content(int containerID) {
-        inUseFragment = ScheduleListFragment.newInstance();
+        ScheduleListFragment fragment = ScheduleListFragment.newInstance();
+        fragment.setTitleLeftClick(v->{
+            LogUtils.i("");
+            jump2Accounts(R.id.activity_phone_root);
+        });
+        this.inUseFragment = fragment;
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(containerID, inUseFragment)
+                .replace(containerID, this.inUseFragment)
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         ;
