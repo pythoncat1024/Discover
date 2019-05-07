@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:barrierAllowsGoneWidgets="true"
+    app:cardBackgroundColor="#3fff"
+    app:cardCornerRadius="@dimen/dp_1"
+    app:cardElevation="@dimen/dp_9"
+    app:cardMaxElevation="@dimen/dp_24"
+    app:cardPreventCornerOverlap="true"
+    app:layout_collapseMode="parallax"
+    app:layout_scrollInterpolator="@android:anim/accelerate_decelerate_interpolator">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_big_date"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            android:layout_gravity="center_vertical"
+            android:background="@color/btn_select_conversation_disable"
+            android:drawableEnd="@drawable/ic_expand_more_gray"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_18"
+            android:paddingEnd="@dimen/dp_8"
+            android:textColor="@color/collect_red"
+            android:textSize="@dimen/sp_18"
+            tools:text="2018-02-31" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_big_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

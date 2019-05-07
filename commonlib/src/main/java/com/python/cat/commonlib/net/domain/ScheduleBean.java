@@ -9,7 +9,7 @@ public class ScheduleBean {
      * dateStr : 2018-12-16
      * id : 5119
      * priority : 0
-     * status : 1
+     * status : 1 -> 完成， 0 -> 未完成
      * title : 生活是什么
      * type : 3
      * userId : 6649

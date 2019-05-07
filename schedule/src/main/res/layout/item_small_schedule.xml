@@ -4,55 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardPreventCornerOverlap="true"
     app:barrierDirection="bottom"
-    app:cardCornerRadius="@dimen/dp_1">
+    app:cardCornerRadius="@dimen/dp_1"
+    app:cardPreventCornerOverlap="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <CheckBox
-            android:id="@+id/item_schedule_check"
+            android:id="@+id/item_small_schedule_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/dp_6" />
+            android:layout_marginEnd="@dimen/dp_6"
+            android:visibility="invisible" />
 
         <TextView
-            android:id="@+id/item_schedule_date"
+            android:id="@+id/item_small_schedule_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_2"
-            android:layout_toEndOf="@id/item_schedule_check"
+            android:layout_toEndOf="@id/item_small_schedule_check"
             android:textSize="@dimen/sp_14"
-            tools:text="2019-03-12" />
+            tools:text="which type?" />
 
         <TextView
-            android:id="@+id/item_schedule_title"
+            android:id="@+id/item_small_schedule_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_schedule_date"
+            android:layout_below="@id/item_small_schedule_type"
             android:layout_marginTop="@dimen/dp_2"
-            android:layout_toEndOf="@id/item_schedule_check"
+            android:layout_toEndOf="@id/item_small_schedule_check"
             android:lines="1"
             android:textSize="@dimen/sp_16"
             tools:text="title" />
 
         <TextView
-            android:id="@+id/item_schedule_content"
+            android:id="@+id/item_small_schedule_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_schedule_title"
+            android:layout_below="@id/item_small_schedule_title"
             android:layout_marginTop="@dimen/dp_2"
-            android:layout_toEndOf="@id/item_schedule_check"
+            android:layout_toEndOf="@id/item_small_schedule_check"
             android:lines="1"
             android:minHeight="@dimen/dp_14"
             android:textSize="@dimen/sp_14"
             tools:text="你好吗，我昨天吃了3碗饭。你呢，吃了几碗？" />
 
         <ImageView
-            android:id="@+id/item_schedule_delete"
+            android:id="@+id/item_small_schedule_delete"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"

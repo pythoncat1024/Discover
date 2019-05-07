@@ -1,6 +1,5 @@
 package com.pycat.schedule.todo;
 
-import android.graphics.Canvas;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,11 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,15 +21,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.apkfuns.logutils.LogUtils;
 import com.pycat.schedule.R;
-import com.python.cat.commonlib.net.domain.ScheduleBean;
 import com.python.cat.commonlib.net.domain.ScheduleInfo;
+import com.python.cat.commonlib.net.domain.ScheduleListBean;
 import com.python.cat.commonlib.utils.ToastHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Consumer;
 
 import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposable;
@@ -49,7 +44,7 @@ public class ScheduleListFragment extends Fragment {
     private TextView mTitle;
     private Disposable disposable;
     private View.OnClickListener mBackListener;
-    private ScheduleAdapter mScheduleAdapter;
+    private ScheduleBigAdapter mBigAdapter;
 
     public ScheduleListFragment() {
     }
@@ -136,7 +131,7 @@ public class ScheduleListFragment extends Fragment {
 
                     } else {
                         mProgressbar.setVisibility(View.GONE);
-                        if (mScheduleAdapter == null) {
+                        if (mBigAdapter == null) {
                             loadScheduleData2UI();
                         } else {
                             refreshScheduleData2UI();
@@ -146,73 +141,57 @@ public class ScheduleListFragment extends Fragment {
     }
 
     private void refreshScheduleData2UI() {
-        List<ScheduleBean> scheduleBeans = adapterDataList(allSchedules);
-        mScheduleAdapter.setScheduleList(scheduleBeans);
-        mScheduleAdapter.notifyDataSetChanged();
+        List<ScheduleListBean> listBeans = adapterDataList(allSchedules);
+        LogUtils.w(listBeans);
+        LogUtils.w(listBeans.size() + " ,,,size,,,");
+        mBigAdapter.setScheduleList(listBeans);
+        mBigAdapter.notifyDataSetChanged();
         if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
     private void loadScheduleData2UI() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         DividerItemDecoration itemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
-        mScheduleAdapter = new ScheduleAdapter();
-        final List<ScheduleBean> scheduleBeans = adapterDataList(allSchedules);
-        LogUtils.w(scheduleBeans);
-        LogUtils.w(scheduleBeans.size() + " ,,,size,,,");
-        mScheduleAdapter.setScheduleList(scheduleBeans);
-        mRecyclerView.setAdapter(mScheduleAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        mBigAdapter = new ScheduleBigAdapter(requireContext());
+        List<ScheduleListBean> listBeans = adapterDataList(allSchedules);
+        LogUtils.w(listBeans);
+        LogUtils.w(listBeans.size() + " ,,,size,,,");
+        mBigAdapter.setScheduleList(listBeans);
+        mRecyclerView.setAdapter(mBigAdapter);
         if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
-    private List<ScheduleBean> adapterDataList(List<ScheduleInfo> allSchedules) {
-        final List<ScheduleBean> scheduleBeans = new ArrayList<>();
+    private List<ScheduleListBean> adapterDataList(List<ScheduleInfo> allSchedules) {
+        final List<ScheduleListBean> scheduleBeans = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
             allSchedules.forEach(scheduleInfo -> {
                 if (scheduleInfo.data != null) {
-                    List<ScheduleInfo.DataBean.ScheduleListBean> doneList = scheduleInfo.data.doneList;
+                    List<ScheduleListBean> doneList = scheduleInfo.data.doneList;
                     if (doneList != null) {
-                        doneList.forEach(bean -> {
-                            List<ScheduleBean> list = bean.todoList;
-                            if (list != null) {
-                                scheduleBeans.addAll(list);
-                            }
-                        });
+                        scheduleBeans.addAll(doneList);
                     }
-                    List<ScheduleInfo.DataBean.ScheduleListBean> todoList = scheduleInfo.data.todoList;
+                    List<ScheduleListBean> todoList = scheduleInfo.data.todoList;
                     if (todoList != null) {
-                        todoList.forEach(bean -> {
-                            List<ScheduleBean> list = bean.todoList;
-                            if (list != null) {
-                                scheduleBeans.addAll(list);
-                            }
-                        });
+                        scheduleBeans.addAll(todoList);
                     }
                 }
             });
         } else {
             for (ScheduleInfo info : allSchedules) {
                 if (info != null && info.data != null) {
-                    List<ScheduleInfo.DataBean.ScheduleListBean> doneList = info.data.doneList;
-                    List<ScheduleInfo.DataBean.ScheduleListBean> todoList = info.data.todoList;
+                    List<ScheduleListBean> doneList = info.data.doneList;
+                    List<ScheduleListBean> todoList = info.data.todoList;
                     if (doneList != null) {
-                        for (ScheduleInfo.DataBean.ScheduleListBean sb : doneList) {
-                            if (sb != null && sb.todoList != null) {
-                                scheduleBeans.addAll(sb.todoList);
-                            }
-                        }
+                        scheduleBeans.addAll(doneList);
                     }
                     if (todoList != null) {
-                        for (ScheduleInfo.DataBean.ScheduleListBean sb : todoList) {
-                            if (sb != null && sb.todoList != null) {
-                                scheduleBeans.addAll(sb.todoList);
-                            }
-                        }
+                        scheduleBeans.addAll(todoList);
                     }
                 }
             }
