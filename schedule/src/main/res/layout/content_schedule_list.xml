@@ -12,25 +12,35 @@
         android:id="@+id/schedule_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="@dimen/dp_6"
         android:imeOptions="actionSearch"
+        android:translationZ="@dimen/dp_6"
+        android:visibility="gone"
         app:closeIcon="@drawable/ic_close_24dp"
         app:commitIcon="@drawable/ic_check_24dp"
         app:dividerPadding="@dimen/dp_4"
         app:goIcon="@drawable/ic_go_24dp"
         app:measureWithLargestChild="true"
-        app:queryBackground="@color/white"
         app:queryHint="@string/hint_search_schedule"
         app:searchHintIcon="@drawable/ic_search_24dp"
         app:searchIcon="@drawable/ic_search_24dp"
         app:showDividers="middle|beginning|end"
         app:submitBackground="@drawable/button_long_selector"
-        app:voiceIcon="@drawable/ic_voice_24dp" />
+        app:voiceIcon="@drawable/ic_voice_24dp"
+        tools:targetApi="lollipop" />
+
+    <Space
+        android:id="@+id/space_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_below="@id/schedule_search"
+        android:background="@color/collect_gray" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/schedule_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/schedule_search">
+        android:layout_below="@id/space_divider">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/schedule_rv_layout"

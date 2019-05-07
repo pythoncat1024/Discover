@@ -1,5 +1,6 @@
 package com.pycat.schedule.todo;
 
+import android.graphics.Canvas;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -154,6 +156,8 @@ public class ScheduleListFragment extends Fragment {
 
     private void loadScheduleData2UI() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
         mScheduleAdapter = new ScheduleAdapter();
         final List<ScheduleBean> scheduleBeans = adapterDataList(allSchedules);
         LogUtils.w(scheduleBeans);

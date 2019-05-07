@@ -21,7 +21,9 @@
             android:id="@+id/item_schedule_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
             android:layout_toEndOf="@id/item_schedule_check"
+            android:textSize="@dimen/sp_14"
             tools:text="2019-03-12" />
 
         <TextView
@@ -29,8 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_schedule_date"
+            android:layout_marginTop="@dimen/dp_2"
             android:layout_toEndOf="@id/item_schedule_check"
             android:lines="1"
+            android:textSize="@dimen/sp_16"
             tools:text="title" />
 
         <TextView
@@ -38,8 +42,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_schedule_title"
+            android:layout_marginTop="@dimen/dp_2"
             android:layout_toEndOf="@id/item_schedule_check"
             android:lines="1"
+            android:minHeight="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             tools:text="你好吗，我昨天吃了3碗饭。你呢，吃了几碗？" />
 
         <ImageView
