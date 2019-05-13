@@ -1,8 +1,8 @@
 package com.python.cat.commonlib;
 
-import android.app.Application;
+import androidx.multidex.MultiDexApplication;
 
-public class LibApp extends Application {
+public class LibApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
